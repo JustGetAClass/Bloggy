@@ -79,8 +79,19 @@ async function main() {
 			res.render("post", {
 				title: post.title,
 				content: post.content,
+				id: requestedPostId,
 			});
 		});
+	});
+
+	app.post("/delete", function (req, res) {
+		const deletedPostId = req.body.deletebutton.trim();
+		Post.deleteOne({ _id: deletedPostId })
+			.then(() => {
+				console.log("Successfully deleted");
+				res.redirect("/");
+			})
+			.catch((err) => console.log(err));
 	});
 
 	app.listen(3000, function () {
