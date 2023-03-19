@@ -75,16 +75,29 @@ async function main() {
 	app.get("/posts/:postName", function (req, res) {
 		const requestedTitle = _.lowerCase(req.params.postName);
 
-		posts.forEach(function (post) {
-			const storedTitle = _.lowerCase(post.title);
+		// posts.forEach(function (post) {
+		// 	const storedTitle = _.lowerCase(post.title);
 
-			if (storedTitle === requestedTitle) {
-				res.render("post", {
-					title: post.title,
-					content: post.content,
+		// 	if (storedTitle === requestedTitle) {
+		// 		res.render("post", {
+		// 			title: post.title,
+		// 			content: post.content,
+		// 		});
+		// 	}
+		// });
+		Post.find()
+			.then((posts) => {
+				posts.forEach((post) => {
+					const storedTitle = _.lowerCase(post.title);
+					if (storedTitle === requestedTitle) {
+						res.render("post", {
+							title: post.title,
+							content: post.content,
+						});
+					}
 				});
-			}
-		});
+			})
+			.catch((err) => console.log(err));
 	});
 
 	app.listen(3000, function () {
