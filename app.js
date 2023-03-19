@@ -72,22 +72,15 @@ async function main() {
 		res.redirect("/");
 	});
 
-	app.get("/posts/:postName", function (req, res) {
-		const requestedTitle = _.lowerCase(req.params.postName);
+	app.get("/posts/:postId", function (req, res) {
+		const requestedPostId = req.params.postId;
 
-		Post.find()
-			.then((posts) => {
-				posts.forEach((post) => {
-					const storedTitle = _.lowerCase(post.title);
-					if (storedTitle === requestedTitle) {
-						res.render("post", {
-							title: post.title,
-							content: post.content,
-						});
-					}
-				});
-			})
-			.catch((err) => console.log(err));
+		Post.findById({ _id: requestedPostId }).then((post) => {
+			res.render("post", {
+				title: post.title,
+				content: post.content,
+			});
+		});
 	});
 
 	app.listen(3000, function () {
