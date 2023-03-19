@@ -9,5 +9,17 @@
   </button>
 </form>
 
+<form action="/update" method="post">
+  <div class="form-group">
+    <label>Title</label>
+    <input class="form-control" type="text" name="updateTitle">
+    <label>Post</label>
+    <textarea class="form-control" name="updateBody" rows="5" cols="30"></textarea>
+  </div>
+  <button type="submit" name="updatebutton" value="<%= id %> " class="btn btn-warning">
+      Update Post
+  </button>
+</form>
+
 
 <%- include("partials/footer"); -%>

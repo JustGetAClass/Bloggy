@@ -94,6 +94,19 @@ async function main() {
 			.catch((err) => console.log(err));
 	});
 
+	app.post("/update", function (req, res) {
+		const updatedPostId = req.body.updatebutton.trim();
+		Post.findByIdAndUpdate(updatedPostId, {
+			title: req.body.updateTitle,
+			content: req.body.updateBody,
+		})
+			.then(() => {
+				console.log("updated successfully");
+				res.redirect("/");
+			})
+			.catch((err) => console.log(err));
+	});
+
 	app.listen(3000, function () {
 		console.log("Server started on port 3000");
 	});
